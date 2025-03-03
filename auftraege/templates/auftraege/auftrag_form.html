@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<script>
+    console.log("JavaScript ist geladen!");
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        let container = document.getElementById("leistungen-container");
+        let addButton = document.getElementById("add-leistung");
+        let totalForms = document.getElementById("id_{{ leistung_formset.prefix }}-TOTAL_FORMS");
+
+        addButton.addEventListener("click", function () {
+            console.log("button clicked!");
+            let formNum = Number(totalForms.value);  // Anzahl bestehender Formulare
+            //let newForm = container.children[1].cloneNode(true);  // Erstes vorhandenes Formular klonen
+            let newForm = container.lastElementChild.cloneNode(true);
+
+            if (!newForm) {
+                console.error("Fehler: Kein Formular gefunden!");
+                return;
+            }
+
+            console.log("Vorher: ", totalForms.value);
+
+            // Alle input/select/textarea IDs & Namen aktualisieren
+            newForm.querySelectorAll("input, select, textarea").forEach(function (input) {
+                let name = input.name.replace(/-\d+-/, `-${formNum}-`);
+                let id = input.id.replace(/-\d+-/, `-${formNum}-`);
+                input.name = name;
+                input.id = id;
+                input.value = "";  // Felder leeren
+            });
+
+            newForm.style.display = "block";
+            container.appendChild(newForm);
+
+            totalForms.value = formNum + 1;  // Django mitteilen, dass ein neues Formular existiert
+
+            console.log("Nachher: ", totalForms.value);
+        });
+    });
+</script>
+
+
+<h2>{% if bearbeiten %}Auftrag bearbeiten{% else %}Neuen Auftrag erstellen{% endif %}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+        <h3>Auftrag</h3>
+        {{ auftrag_form.as_p }}
+        
+        {% if not bearbeiten %}
+            <h3>Leistungen</h3>
+            <div id="leistungen-container">
+                {{ leistung_formset.management_form }}  <!-- WICHTIG für Django Formsets -->
+        
+                {% for form in leistung_formset %}
+                    <div class="leistung-form">
+                        {{ form.as_table }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+    
+    <button type="button" id="add-leistung">+ Leistung hinzufügen</button>
+
+    <button type="submit" class="btn btn-success">Speichern</button>
+</form>
+
+
+
+<a href="{% url 'auftrag_liste' %}" class="btn btn-secondary">Abbrechen</a>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{% if bearbeiten %}Auftrag bearbeiten{% else %}Neuen Auftrag erstellen{% endif %}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+        <h3>Auftrag</h3>
+        {{ auftrag_form.as_p }}
+        
+        {% if not bearbeiten %}
+            <h3>Leistungen</h3>
+            {{ leistung_formset.management_form }}
+            
+            <div id="leistungen">
+                {% for form in leistung_formset %}
+                    <div class="leistung-form">
+                        {{ form.as_p }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+    
+
+    <button type="submit" class="btn btn-success">Speichern</button>
+</form>
+
+<a href="{% url 'auftrag_liste' %}" class="btn btn-secondary">Abbrechen</a>
+
+{% endblock %}

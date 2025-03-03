@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %} Kunde erstellen {% endblock %}
+{% block content %}
+    <h2>Kunde erstellen</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Speichern</button>
+        <a href="{% url 'kunden_liste' %}" class="btn btn-secondary">Abbrechen</a>
+    </form>
+{% endblock %}

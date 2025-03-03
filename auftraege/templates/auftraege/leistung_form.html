@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Neue Leistung hinzufügen</h2>
+
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn btn-primary">Speichern</button>
+        <a href="{% url 'auftrag_neu' %}" class="btn btn-secondary">Zurück</a>
+    </form>
+</div>
+{% endblock %}
