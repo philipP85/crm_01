@@ -2,9 +2,20 @@ from django.db import models
 from kunden.models import Kunde  # Kunde-Modell aus der anderen App importieren
 
 class Leistung(models.Model):
+    EINHEITEN = [
+        ('Stk', 'Stück'),
+        ('Pkg', 'Packung'),
+        ('kg', 'Kilogramm'),
+        ('m', 'Meter'),
+        ('m²', 'Quadratmeter'),
+        ('m³', 'Kubikmeter'),
+        ('h', 'Stunde'),
+        ('km', 'Kilometer'),
+    ]
     beschreibung = models.CharField(max_length=255)
     interne_nummer = models.CharField(max_length=50, unique=True)
     preis_pro_einheit = models.DecimalField(max_digits=10, decimal_places=2)
+    einheit = models.CharField(max_length=10, choices=EINHEITEN, default='h') 
     notiz = models.TextField(blank=True, null=True)
 
     def __str__(self):

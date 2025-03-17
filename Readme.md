@@ -23,10 +23,18 @@ Ein Django-Projekt zur Verwaltung von Kunden, Aufträgen und Leistungen.
 
 ## Work in Progress / To-Do
 
-- [ ] login für ganze seite!?
-- [ ] Rechnungsnummer automatisch vorschlagen
-- [ ] Filter-Feature erweitern: Auftragsliste nach Kunden filtern
+- [x] login für ganze seite!?
+- [x] autologout
+- [x] leistungs-unit hinzufügen
+- [ ] leistungs preis auf aktuell und zum Angebotszeitpunkt ändern
+- [x] markiere pflichtfelder
+- [x] Auftragsnummer automatisch vorschlagen
+- [ ] Rechnungsnummer automatisch vergeben erst wenn Rechnung gestellt wird
+- [ ] Filter-Feature erweitern: Auftragsliste und Workshops nach Kunden filtern
 - [x] Summenberechnung optimieren: Automatische Berechnung im Backend
 - [ ] Testfälle schreiben: Unit-Tests für Models & Views hinzufügen
-- [ ] Deploy vorbereiten: Hosting-Setup für Produktion einrichten
-- [ ] UX verbessern: Buttons & Tabellen anpassen
+- [x] python-anywhere - Deploy vorbereiten: Hosting-Setup für Produktion einrichten
+- [ ] UX/Forms verbessern: Buttons & Tabellen anpassen
+- [ ] Einheit anzeigen bei Leistung-form und Material-form
+- [x] hinzufügen der richtigen urls für die event in das Serializer Objekt oder in das model
+- [x] kosten bei Workshop - Teilnehmerpreis, Einnahme durch bestätigte Teilnahme*Einzelpreis, Summer der Materialkosten

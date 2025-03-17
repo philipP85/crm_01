@@ -20,8 +20,20 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # api routs
+    path('api/kunden/', include('kunden.urls')),
+    path('api/kalender/', include('kalender.urls')),
+
+    # app sites
     path('kunden/', include('kunden.urls')),
-    path('api/', include('kunden.urls')),
     path('auftraege/', include('auftraege.urls')),
+    path('kalender/', include('kalender.urls')),
+    path('workshops/', include('workshops.urls')),
+
+    # login
     path('accounts/', include('django.contrib.auth.urls')),  # added for login and logout
+
+
+    
 ]

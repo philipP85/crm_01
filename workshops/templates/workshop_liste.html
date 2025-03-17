@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Workshop-Übersicht</h2>
+
+    <a href="{% url 'workshop_neu' %}" class="btn btn-success mb-3">Neuen Workshop hinzufügen</a>
+
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Titel</th>
+                <th>Datum</th>
+                <th>Startzeit</th>
+                <th>Endzeit</th>
+                <th>Aktionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for workshop in workshops %}
+                <tr>
+                    <td>{{ workshop.name }}</td>
+                    <td>{{ workshop.datum }}</td>
+                    <td>{{ workshop.startzeit }}</td>
+                    <td>{{ workshop.endzeit }}</td>
+                    <td>
+                        <a href="{% url 'workshop_bearbeiten' workshop.id %}" class="btn btn-sm btn-warning">Bearbeiten</a>
+                        <button class="btn btn-sm btn-info" data-bs-toggle="collapse" data-bs-target="#teilnehmer-{{ workshop.id }}">
+                            Teilnehmer
+                        </button>
+                        <button class="btn btn-sm btn-secondary" data-bs-toggle="collapse" data-bs-target="#material-{{ workshop.id }}">
+                            Material
+                        </button>
+                    </td>
+                </tr>
+
+                <!-- Teilnehmer-Liste -->
+                <tr>
+                    <td colspan="5" class="hiddenRow">
+                        <div id="teilnehmer-{{ workshop.id }}" class="collapse">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Telefon</th>
+                                        <th>Anmeldedatum</th>
+                                        <th>Bezahlt</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for teilnehmer in workshop.workshopteilnehmer_set.all %}
+                                    <tr>
+                                        <td>{{ teilnehmer.teilnehmer.vorname }}</td>
+                                        <td>{{ teilnehmer.teilnehmer.email }}</td>
+                                        <td>{{ teilnehmer.teilnehmer.telefon }}</td>
+                                        <td>{{ teilnehmer.anmeldedatum|date:"d.m.Y H:i" }}</td>
+                                        <td>{% if teilnehmer.bezahlt %}✔️{% else %}❌{% endif %}</td>
+                                    </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td colspan="3">Keine Teilnehmer vorhanden</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- Leistungen-Liste -->
+                <tr>
+                    <td colspan="5" class="hiddenRow">
+                        <div id="material-{{ workshop.id }}" class="collapse">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Material</th>
+                                        <th>Menge</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for material in workshop.workshopmaterial_set.all %}
+                                    <tr>
+                                        <td>{{ material.material.beschreibung }}</td>
+                                        <td>{{ material.menge }}</td>
+                                    </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td colspan="3">Kein Material vorhanden</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+
+            {% endfor %}
+        </tbody>        
+    </table>
+</div>
+{% endblock %}

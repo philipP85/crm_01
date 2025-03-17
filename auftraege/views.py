@@ -102,7 +102,7 @@ def leistung_erstellen(request):
 def leistung_bearbeiten(request, pk):
     leistung = get_object_or_404(Leistung, pk = pk)
     if request.method == 'POST':
-        form = LeistungForm(request.Post, instance=leistung)
+        form = LeistungForm(request.POST, instance=leistung)
         if form.is_valid():
             form.save()
             return redirect('leistung_liste')
