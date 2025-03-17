@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %} Kalender_test {% endblock %}
+
+{% block content %}
+{% load static %}
+<h2>Kalender_Test</h2>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+<link rel="stylesheet" href="{% static 'gen_styling.css' %}">
+<!-- <div id='calendar'></div> -->
+
+<div class="container mt-4">
+    <div id="calendar-container" class="card shadow p-3">
+        <div id="calendar"></div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: '/kalender/api/events/' // Hier kann eine Django-API für Events genutzt werden
+        });
+        calendar.render();
+    });
+</script>
+
+{% endblock %}

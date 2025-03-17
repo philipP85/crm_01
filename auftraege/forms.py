@@ -6,7 +6,7 @@ from datetime import datetime
 class LeistungForm(forms.ModelForm):
     class Meta:
         model = Leistung
-        fields = ['beschreibung', 'interne_nummer', 'preis_pro_einheit', 'notiz']
+        fields = ['beschreibung','einheit', 'interne_nummer', 'preis_pro_einheit', 'notiz']
         widgets = {
             'notiz': forms.Textarea(attrs={'rows': 3, 'cols': 40}),
         }
@@ -20,6 +20,7 @@ class AuftragLeistungForm(forms.ModelForm):
         fields = ['leistung', 'anzahl']
 
 class AuftragForm(forms.ModelForm):
+    required_css_class = 'required-field'
     ausfuehrungsdatum = forms.DateField(
         widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control', 'style': 'width: 150px;'})
     )
@@ -40,7 +41,8 @@ class AuftragForm(forms.ModelForm):
             #anzahl_auftraege = Auftrag.objects.filter(kunde=self.initial.get('kunde')).count()
             #anzahl_auftraege = Auftrag.objects.all().count()
             s_year = str(aktuelles_jahr)
-            self.fields['rechnungsnummer'].initial = f"R{s_year[-2:]}-{auftraege_dieses_jahr+1:04.0f}"
+            #self.fields['rechnungsnummer'].initial = f"R{s_year[-2:]}-{auftraege_dieses_jahr+1:04.0f}"
+            self.fields['angebotsnummer'].initial = f"A{s_year[-2:]}-{auftraege_dieses_jahr+1:04.0f}"
 
 
 

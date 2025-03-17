@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Workshop-Übersicht</h2>
+
+    <a href="{% url 'workshop_neu' %}" class="btn btn-success mb-3">Neuen Workshop hinzufügen</a>
+
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Titel</th>
+                <th>Datum</th>
+                <th>Startzeit</th>
+                <th>Endzeit</th>
+                <th>Aktionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for workshop in workshops %}
+                <tr>
+                    <td>{{ workshop.name }}</td>
+                    <td>{{ workshop.datum }}</td>
+                    <td>{{ workshop.startzeit }}</td>
+                    <td>{{ workshop.endzeit }}</td>
+                    <td>
+                        <a href="{% url 'workshop_bearbeiten' workshop.id %}" class="btn btn-sm btn-warning">Bearbeiten</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>        
+    </table>
+</div>
+{% endblock %}

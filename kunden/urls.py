@@ -10,5 +10,5 @@ urlpatterns = [
     path('', KundenListeView.as_view(), name='kunden_liste'),
     path('neu/', kunde_erstellen, name='kunde_erstellen'),
     path('<int:pk>/bearbeiten/', kunde_bearbeiten, name='kunde_bearbeiten'),
-    path('', include(router.urls)),  # API-URLs automatisch registrieren
+    path('api/', include(router.urls)),  # API-URLs automatisch registrieren
 ]

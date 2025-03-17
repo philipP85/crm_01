@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Materialübersicht</h2>
+    <a href="{% url 'material_neu' %}" class="btn btn-success mb-3">Neues Material hinzufügen</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Beschreibung</th>
+                <th>Interne Nummer</th>
+                <th>Preis</th>
+                <th>Einheit</th>
+                <th>Aktionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for material in materialien %}
+                <tr>
+                    <td>{{ material.id }}</td>
+                    <td>{{ material.beschreibung }}</td>
+                    <td>{{ material.interne_nummer }}</td>
+                    <td>{{ material.preis_pro_einheit }} €</td>
+                    <td>{{ material.get_einheit_display }}</td>
+                    <td>
+                        <a href="{% url 'material_bearbeiten' material.id %}" class="btn btn-sm btn-warning">Bearbeiten</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

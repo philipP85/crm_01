@@ -43,8 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'kunden',  # append Kunden-App
     'auftraege', # append # Auftraege-App
+    'workshops',
     'django_filters',  # Filter-System
     'rest_framework',  # REST API
+    'kalender',
 ]
 
 MIDDLEWARE = [
@@ -125,7 +127,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+#STATICFILES_DIRS = [Path(BASE_DIR).parent / "static",]
+STATICFILES_DIRS = [os.path.join(BASE_DIR,"static")]
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -150,3 +155,9 @@ LOGIN_URL = '/accounts/login/'
 #     return middleware
 
 # MIDDLEWARE.append(login_required_middleware)
+
+
+# Auto-Logout
+SESSION_COOKIE_AGE = 900
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Optional: Logout beim Schließen des Browsers
+
