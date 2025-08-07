@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-&h5d)ori67uoqqbemvup3&xv@&i%q24m+)!@p=y+*!*q1jud71
 DEBUG = True
 
 ALLOWED_HOSTS = ['crm-01.onrender.com','127.0.0.1']
-
+CSRF_TRUSTED_ORIGINS = ["https://crm-01.onrender.com"]
 
 # Application definition
 
