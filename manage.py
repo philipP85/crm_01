@@ -15,6 +15,14 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
+    
+    # ⬇⬇⬇ MIGRATE WORKAROUND START  
+    import django
+    django.setup()
+    from django.core.management import call_command
+    call_command("migrate", interactive=False)
+    # ⬆⬆⬆ MIGRATE WORKAROUND END
+
     execute_from_command_line(sys.argv)
 
 
